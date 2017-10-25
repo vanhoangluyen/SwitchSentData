@@ -58,13 +58,26 @@
                                 </connections>
                             </switch>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="vhF-TS-Jgt"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="addNumber" destination="kgw-b0-Llv" id="aKh-8I-NNJ"/>
+                        <outlet property="addString" destination="6OK-pD-tD8" id="7oL-Fw-yJG"/>
                         <outlet property="switchState" destination="9Na-1p-iNt" id="iZW-If-C4l"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0pr-P6-Wyi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <barButtonItem systemItem="add" id="6OK-pD-tD8">
+                    <color key="tintColor" red="0.16975628779999999" green="0.37449854960000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <segue destination="u0Z-Q8-b7q" kind="show" id="c7T-Gh-vW7"/>
+                    </connections>
+                </barButtonItem>
+                <barButtonItem systemItem="add" id="kgw-b0-Llv">
+                    <color key="tintColor" red="0.16975628779999999" green="0.37449854960000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" id="4pM-WX-XRG"/>
+                    </connections>
+                </barButtonItem>
             </objects>
             <point key="canvasLocation" x="-202" y="116"/>
         </scene>
@@ -168,4 +181,8 @@
             <point key="canvasLocation" x="-1071" y="117"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Eve-Qv-DE8"/>
+        <segue reference="4pM-WX-XRG"/>
+    </inferredMetricsTieBreakers>
 </document>

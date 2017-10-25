@@ -9,6 +9,8 @@
 import UIKit
 
 class TableVC: UITableViewController {
+   @IBOutlet var addString: UIBarButtonItem!
+    @IBOutlet var addNumber: UIBarButtonItem!
     @IBOutlet weak var switchState: UISwitch!
     
     let getDataSourceStr = DataSourceString()
@@ -24,6 +26,7 @@ class TableVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         tableView.delegate = getDelegate
         tableView.dataSource = getDataSourceNum
+        navigationItem.rightBarButtonItem = addNumber
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,8 +37,10 @@ class TableVC: UITableViewController {
     @IBAction func ClickOn(_ sender: UISwitch) {
         if switchState.isOn {
             tableView.dataSource = getDataSourceNum
+         navigationItem.rightBarButtonItem = addNumber
         } else {
             tableView.dataSource = getDataSourceStr
+            navigationItem.rightBarButtonItem = addString
         }
         tableView.reloadData()
     }
@@ -54,27 +59,38 @@ class TableVC: UITableViewController {
         }
     }
     @IBAction func unwindNum(sender: UIStoryboardSegue) {
-        let unwinNum = (sender.source as? NumberVC)?.getNumber
-        getDataSourceNum.arrayNumber[(tableView.indexPathForSelectedRow?.row)!] = unwinNum!
+        if let unwinNum = (sender.source as? NumberVC)?.getNumber {
+            if let selectedIndexPathNum = tableView.indexPathForSelectedRow {
+        // Update existing number
+        getDataSourceNum.arrayNumber[selectedIndexPathNum.row] = unwinNum
+        tableView.reloadRows(at: [selectedIndexPathNum], with: .none)
+            } else {
+                //add new row number
+                let newIndexPathNum = IndexPath(row: getDataSourceNum.arrayNumber.count, section: 0)
+                getDataSourceNum.arrayNumber.append(unwinNum)
+                tableView.insertRows(at: [newIndexPathNum], with: .automatic)
+            }
+        }
         tableView.reloadData()
-        
     }
     @IBAction func unwindString(sender: UIStoryboardSegue) {
-        let unwinStr = (sender.source as? StringVC)?.getString
-        getDataSourceStr.arrayString[(tableView.indexPathForSelectedRow?.row)!] = unwinStr!
+        if let unwinStr = (sender.source as? StringVC)?.getString {
+            if let selectedIndexPathStr = tableView.indexPathForSelectedRow {
+                //update existing string
+                getDataSourceStr.arrayString[selectedIndexPathStr.row] = unwinStr
+                tableView.reloadRows(at: [selectedIndexPathStr], with: .none)
+            } else {
+                //add new row string
+                let newIndexPathStr = IndexPath(row: getDataSourceStr.arrayString.count, section: 0)
+                getDataSourceStr.arrayString.append(unwinStr)
+                tableView.insertRows(at: [newIndexPathStr], with: .automatic)
+            }
+        }
         tableView.reloadData()
     }
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
+    // Override to support conditional editing of the table view.
+    
+    
 
     /*
     // Override to support rearranging the table view.

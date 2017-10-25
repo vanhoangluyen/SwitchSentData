@@ -7,18 +7,29 @@
 //
 
 import UIKit
-
+func showAlert(vc: UIViewController, title:String, message: String) {
+    
+    let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+    
+    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in}
+    
+    alertController.addAction(okAction)
+    
+    vc.present(alertController, animated: true, completion: nil)
+}
 class TableVC: UITableViewController {
    @IBOutlet var addString: UIBarButtonItem!
     @IBOutlet var addNumber: UIBarButtonItem!
     @IBOutlet weak var switchState: UISwitch!
+ 
     
     let getDataSourceStr = DataSourceString()
     let getDataSourceNum = DataSourceNumber()
     let getDelegate = SplitDelegate()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getDataSourceStr.DataStr = self
+        getDataSourceNum.DataNum = self
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -27,13 +38,13 @@ class TableVC: UITableViewController {
         tableView.delegate = getDelegate
         tableView.dataSource = getDataSourceNum
         navigationItem.rightBarButtonItem = addNumber
+      
     }
-
+   
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     @IBAction func ClickOn(_ sender: UISwitch) {
         if switchState.isOn {
             tableView.dataSource = getDataSourceNum
@@ -88,33 +99,4 @@ class TableVC: UITableViewController {
         }
         tableView.reloadData()
     }
-    // Override to support conditional editing of the table view.
-    
-    
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

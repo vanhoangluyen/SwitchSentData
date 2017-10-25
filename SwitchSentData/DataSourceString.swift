@@ -10,13 +10,12 @@ import Foundation
 import UIKit
 
 class DataSourceString: NSObject ,UITableViewDataSource {
-    
+    var DataStr: TableVC!
     var arrayString = ["Nhất", "Nhị", "Tam", "Tứ", "Ngũ", "Lục", "lục", "Thất", "Bát", "Cửu", "Thập"]
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return arrayString.count
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "usestring", for: indexPath)
@@ -34,7 +33,9 @@ class DataSourceString: NSObject ,UITableViewDataSource {
             // Delete the row from the data source
             arrayString.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            
+            if arrayString.count == 0 {
+                showAlert(vc: DataStr, title: "OK", message: "No DATA")
+            }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }

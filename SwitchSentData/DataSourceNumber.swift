@@ -11,7 +11,8 @@ import UIKit
 
 class DataSourceNumber: NSObject, UITableViewDataSource {
     
-    var arrayNumber = Array(1...10)
+    var DataNum: TableVC!
+    var arrayNumber = Array(0...10)
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return arrayNumber.count
@@ -33,9 +34,13 @@ class DataSourceNumber: NSObject, UITableViewDataSource {
             // Delete the row from the data source
             arrayNumber.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            if arrayNumber.count == 0 {
+                showAlert(vc: DataNum, title: "OK", message: "NO DATA")
+            }
+            tableView.reloadData()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
-
+  
 }

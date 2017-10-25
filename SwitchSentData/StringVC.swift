@@ -8,18 +8,24 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class StringVC: UIViewController {
+    @IBOutlet weak var editStringTextField: UITextField!
+    
+    var getString: String?
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        if getString != nil {
+            editStringTextField.text = getString
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        getString = editStringTextField.text
+    }
 
 }
 
